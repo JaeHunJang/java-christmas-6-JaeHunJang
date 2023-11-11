@@ -9,4 +9,8 @@ public class InputView {
         return Console.readLine();
     }
 
+    public static String readOrder() {
+        System.out.println(Message.INPUT_ORDER);
+        return Console.readLine();
+    }
 }
