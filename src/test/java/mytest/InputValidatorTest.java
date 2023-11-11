@@ -23,6 +23,17 @@ class InputValidatorTest extends NsTest {
                 .hasMessage(Message.ERROR_INPUT_DATE);
     }
 
+    @DisplayName("날짜 저장 테스트")
+    @ValueSource(strings = {"a","ㄱ","10a","ㄱ10","0","-1","32","99"})
+    @ParameterizedTest
+    void visitDateTest(String date) {
+        runException(date);
+
+        assertThat(output()).contains(
+                Message.ERROR_INPUT_DATE
+        ).endsWith(Message.INPUT_DATE);
+    }
+
     @DisplayName("주문 입력 검증 테스트")
     @ValueSource(strings = {
             "해산물파스타-,2", "해산물파스타:2", "해산-1,물파스타-2", "해산물파스타-0", "0-해산물파스타",
