@@ -11,6 +11,11 @@ public class PromotionController {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
 
+        print();
+    }
+
+    private void print() {
         OutputView.printVisitDate(visitDate.getVisitDate());
+        OutputView.printOrder(order.getOrder());
     }
 }

@@ -29,4 +29,7 @@ public class Order {
         return Integer.parseInt(menuItem[1]);
     }
 
+    public Map<String, Integer> getOrder() {
+        return order;
+    }
 }
