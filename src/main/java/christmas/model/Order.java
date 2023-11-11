@@ -18,9 +18,15 @@ public class Order {
     private Map<String, Integer> generateOrder(String order) {
         return Arrays.stream(order.split(Constant.MENU_DELIMITER))
                 .map(menuItem -> menuItem.split(Constant.MENU_ITEM_DELIMITER))
-                .collect(Collectors.toMap(
-                        name -> name[0],
-                        quantity -> Integer.parseInt(quantity[1])
-                ));
+                .collect(Collectors.toMap(this::getMenu, this::getQuantity));
     }
+
+    private String getMenu(String[] menuItem) {
+        return menuItem[0];
+    }
+
+    private Integer getQuantity(String[] menuItem) {
+        return Integer.parseInt(menuItem[1]);
+    }
+
 }
