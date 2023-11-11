@@ -9,4 +9,8 @@ public class VisitDate {
         new VisitDateValidator(visitDate);
         this.visitDate = Integer.parseInt(visitDate);
     }
+
+    public int getVisitDate() {
+        return visitDate;
+    }
 }
