@@ -47,6 +47,21 @@ class InputValidatorTest extends NsTest {
                 .hasMessage(Message.ERROR_INPUT_ORDER);
     }
 
+    @DisplayName("주문 저장 테스트")
+    @ValueSource(strings = {
+            "해산물파스타-,2", "해산물파스타:2", "해산-1,물파스타-2", "해산물파스타-0", "0-해산물파스타",
+            "해산-1,물파스타-2","해산물파스타-2-레드와인-1-초코케이크-1","해산물파스타,2,레드와인,1,초코케이크,1",
+            "해산물파스타-2, 레드와인-1", "해산물파스타-2,해산물파스타-2"
+    })
+    @ParameterizedTest
+    void orderTest(String order) {
+        runException("10", order);
+
+        assertThat(output()).contains(
+                Message.ERROR_INPUT_ORDER
+        ).endsWith(Message.INPUT_ORDER);
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
