@@ -28,6 +28,10 @@ public enum Menu {
         this.price = price;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public static Menu getMenu(String name) {
         return Arrays.stream(Menu.values())
                 .filter(menu -> menu.name.equals(name))

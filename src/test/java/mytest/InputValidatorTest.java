@@ -6,10 +6,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import christmas.config.Message;
+import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.util.validator.OrderValidator;
 import christmas.util.validator.VisitDateValidator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -60,6 +62,17 @@ class InputValidatorTest extends NsTest {
         assertThat(output()).contains(
                 Message.ERROR_INPUT_ORDER
         ).endsWith(Message.INPUT_ORDER);
+    }
+
+    @DisplayName("총 금액 테스트")
+    @Test
+    void orderTotalPriceTest() {
+        assertThat(new Order("해산물파스타-2,레드와인-2").getTotalPrice())
+                .isEqualTo(190000);
+        assertThat(new Order("타파스-1,시저샐러드-1,티본스테이크-1,크리스마스파스타-1,아이스크림-1,제로콜라-2").getTotalPrice())
+                .isEqualTo(104500);
+        assertThat(new Order("샴페인-2,해산물파스타-1,바비큐립-1,양송이수프-1").getTotalPrice())
+                .isEqualTo(145000);
     }
 
     @Override

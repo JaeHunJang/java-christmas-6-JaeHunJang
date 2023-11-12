@@ -1,6 +1,7 @@
 package christmas.model;
 
 import christmas.config.Constant;
+import christmas.config.Menu;
 import christmas.util.validator.OrderValidator;
 
 import java.util.Arrays;
@@ -27,6 +28,12 @@ public class Order {
 
     private Integer getQuantity(String[] menuItem) {
         return Integer.parseInt(menuItem[1]);
+    }
+
+    public int getTotalPrice() {
+        return order.entrySet().stream()
+                .mapToInt(entry -> Menu.getMenu(entry.getKey()).getPrice() * entry.getValue())
+                .sum();
     }
 
     public Map<String, Integer> getOrder() {
