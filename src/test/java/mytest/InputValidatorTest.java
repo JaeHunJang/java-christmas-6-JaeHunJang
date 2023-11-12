@@ -64,6 +64,20 @@ class InputValidatorTest extends NsTest {
         ).endsWith(Message.INPUT_ORDER);
     }
 
+    @DisplayName("최대 주문 수량 테스트")
+    @ValueSource(strings = {
+            "해산물파스타-19,타파스-2","해산물파스타-21",
+            "양송이수프-10,타파스-1,시저샐러드-1,티본스테이크-1,바비큐립-1,해산물파스타-1,크리스마스파스타-1,초코케이크-1,아이스크림-1,제로콜라-1,레드와인-1,샴페인-1"
+    })
+    @ParameterizedTest
+    void maxOrderQuantityTest(String order) {
+        runException("10", order);
+
+        assertThat(output()).contains(
+                Message.ERROR_INPUT_ORDER
+        ).endsWith(Message.INPUT_ORDER);
+    }
+
     @DisplayName("총 금액 테스트")
     @Test
     void orderTotalPriceTest() {

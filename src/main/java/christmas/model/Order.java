@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.config.Constant;
 import christmas.config.Menu;
+import christmas.config.Message;
 import christmas.util.validator.OrderValidator;
 
 import java.util.Arrays;
@@ -14,6 +15,7 @@ public class Order {
     public Order(String order) {
         new OrderValidator(order);
         this.order = generateOrder(order);
+        validateMaxOrderQuantity();
     }
 
     private Map<String, Integer> generateOrder(String order) {
@@ -28,6 +30,11 @@ public class Order {
 
     private Integer getQuantity(String[] menuItem) {
         return Integer.parseInt(menuItem[1]);
+    }
+
+    private void validateMaxOrderQuantity() {
+        if (order.values().stream().mapToInt(Integer::intValue).sum() > Constant.MENU_MAX_QUANTITY)
+            throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
     }
 
     public int getTotalPrice() {

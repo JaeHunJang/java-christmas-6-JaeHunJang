@@ -11,5 +11,6 @@ public class Constant {
     public static final String REGEX_MENU_NAME = "[^가-힣,]+";
     public static final String REGEX_MENU_QUANTITY = "[^\\d,]+";
     public static final String REGEX_MIN_QUANTITY = "^[1-9]\\d*(,[1-9]\\d*)*$";
+    public static final int MENU_MAX_QUANTITY = 20;
 
 }
