@@ -43,6 +43,10 @@ public class Order {
                 .sum();
     }
 
+    public boolean isGiftTarget() {
+        return getTotalPrice() >= Constant.GIFT_LIMIT_PRICE;
+    }
+
     public Map<String, Integer> getOrder() {
         return order;
     }
