@@ -7,6 +7,7 @@ public class Message {
     public static final String OUTPUT_VISIT_DATE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
     public static final String OUTPUT_MENU_TITLE = "\n<주문 메뉴>";
     public static final String OUTPUT_MENU = "%s %d개%n";
+    public static final String OUTPUT_TOTAL_PRICE = "%n<할인 전 총주문 금액>%n%s원%n";
 
     public static final String ERROR_MESSAGE_PREFIX = "[ERROR]";
     public static final String ERROR_INPUT_DATE = ERROR_MESSAGE_PREFIX + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.";

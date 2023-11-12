@@ -17,5 +17,6 @@ public class PromotionController {
     private void print() {
         OutputView.printVisitDate(visitDate.getVisitDate());
         OutputView.printOrder(order.getOrder());
+        OutputView.printTotalPrice(order.getTotalPrice());
     }
 }
