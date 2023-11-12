@@ -8,6 +8,10 @@ public class Message {
     public static final String OUTPUT_MENU_TITLE = "\n<주문 메뉴>";
     public static final String OUTPUT_MENU = "%s %d개%n";
     public static final String OUTPUT_TOTAL_PRICE = "%n<할인 전 총주문 금액>%n%s원%n";
+    public static final String OUTPUT_GIFT = "%n<증정 메뉴>%n%s%n";
+    public static final String GIFT = "샴페인 1개";
+    public static final String NONE = "없음";
+
 
     public static final String ERROR_MESSAGE_PREFIX = "[ERROR]";
     public static final String ERROR_INPUT_DATE = ERROR_MESSAGE_PREFIX + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.";

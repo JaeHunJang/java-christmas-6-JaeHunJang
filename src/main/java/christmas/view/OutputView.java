@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.config.Constant;
 import christmas.config.Message;
 import christmas.util.Util;
 
@@ -21,5 +22,13 @@ public class OutputView {
 
     public static void printTotalPrice(int totalPrice) {
         System.out.printf(Message.OUTPUT_TOTAL_PRICE, Util.formattingNumber(totalPrice));
+    }
+
+    public static void printGift(boolean isGiftTarget) {
+        String gift = Message.NONE;
+        if(isGiftTarget) {
+            gift = Message.GIFT;
+        }
+        System.out.printf(Message.OUTPUT_GIFT, gift);
     }
 }
