@@ -17,6 +17,7 @@ public class Order {
         new OrderValidator(order);
         this.order = generateOrder(order);
         validateMaxOrderQuantity();
+        validateOnlyOrderDrink();
     }
 
     private Map<Menu, Integer> generateOrder(String order) {
@@ -35,6 +36,11 @@ public class Order {
 
     private void validateMaxOrderQuantity() {
         if (getTotalQuantity() > Constant.MENU_MAX_QUANTITY)
+            throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
+    }
+
+    private void validateOnlyOrderDrink() {
+        if (getTotalQuantity() == getMenuQuantity(MenuType.DRINK))
             throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
     }
 

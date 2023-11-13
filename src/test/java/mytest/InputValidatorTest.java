@@ -13,6 +13,7 @@ import christmas.util.validator.VisitDateValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class InputValidatorTest extends NsTest {
@@ -76,6 +77,25 @@ class InputValidatorTest extends NsTest {
         assertThat(output()).contains(
                 Message.ERROR_INPUT_ORDER
         ).endsWith(Message.INPUT_ORDER);
+    }
+
+    @DisplayName("음료만 주문 테스트")
+    @CsvSource(value = {
+            "레드와인-1,타파스-2:true",
+            "제로콜라-1,레드와인-1,샴페인-1:false",
+            "레드와인-1:false",
+            "샴페인-1:false",
+            "제로콜라-1:false",
+            "해산물파스타-1,제로콜라-1:true"
+    }, delimiter = ':'
+    )
+    @ParameterizedTest
+    void onlyOrderDrinkTest(String order, boolean success) {
+        runException("10", order);
+
+        assertThat(output()).contains(
+                success ? "" : Message.ERROR_INPUT_ORDER
+        );
     }
 
     @DisplayName("총 금액 테스트")
