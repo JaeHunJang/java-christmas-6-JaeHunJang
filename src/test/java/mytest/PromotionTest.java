@@ -3,6 +3,7 @@ package mytest;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import christmas.config.Event;
+import christmas.config.Menu;
 import christmas.config.MenuType;
 import christmas.config.Message;
 import christmas.model.Order;
@@ -25,10 +26,11 @@ class PromotionTest extends NsTest {
     })
     @ParameterizedTest
     void giftTest(String order) {
-        runException("10", order);
+        Promotion promotion = new Promotion();
+        promotion.discountGift(new Order(order).getTotalPrice());
 
-        assertThat(output())
-                .endsWith(Message.GIFT);
+        assertThat(promotion.getPromotion().get(Event.GIFT))
+                .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 
     @DisplayName("평일 테스트")
