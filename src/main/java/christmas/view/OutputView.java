@@ -32,8 +32,11 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_GIFT, gift);
     }
 
-    public static void printPromotion(Map<String, Integer> promotion) {
+    public static void printPromotion(boolean isEventTarget, Map<String, Integer> promotion) {
         System.out.println(Message.OUTPUT_PROMOTION_TITLE);
+        if(!isEventTarget) {
+            System.out.println(Message.NONE);
+        }
         promotion.forEach(OutputView::printEvent);
     }
 

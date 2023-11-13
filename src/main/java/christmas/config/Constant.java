@@ -13,6 +13,7 @@ public class Constant {
     public static final String REGEX_MIN_QUANTITY = "^[1-9]\\d*(,[1-9]\\d*)*$";
     public static final int MENU_MAX_QUANTITY = 20;
 
+    public static final int DISCOUNT_LIMIT_PRICE = 10000;
     public static final int GIFT_LIMIT_PRICE = 120000;
     public static final int DISCOUNT_WEEK_PRICE = 2023;
     public static final int DISCOUNT_SPECIAL = 1000;

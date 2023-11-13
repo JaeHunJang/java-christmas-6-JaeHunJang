@@ -59,6 +59,10 @@ public class Order {
                 .sum();
     }
 
+    public boolean isDiscountTarget() {
+        return getTotalPrice() >= Constant.DISCOUNT_LIMIT_PRICE;
+    }
+
     public int getTotalPrice() {
         return order.entrySet().stream()
                 .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())

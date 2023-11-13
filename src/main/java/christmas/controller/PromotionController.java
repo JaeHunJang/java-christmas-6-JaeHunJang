@@ -27,23 +27,25 @@ public class PromotionController {
         OutputView.printOrder(order.orderToString());
         OutputView.printTotalPrice(order.getTotalPrice());
         OutputView.printGift(promotion.hasGift());
-        OutputView.printPromotion(promotion.getPromotionList());
+        OutputView.printPromotion(order.isDiscountTarget(), promotion.getPromotionList());
         OutputView.printTotalDiscount(promotion.getTotalDiscount() * Constant.MINUS);
         OutputView.printPaymentPrice(order.getTotalPrice(), promotion.getDiscount());
         OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(promotion.getTotalDiscount()));
     }
 
     private void discount() {
-        promotion.discountDDay(visitDate.getDDayCount());
-        if (visitDate.isWeekday()) {
-            promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
+        if (order.isDiscountTarget()) {
+            promotion.discountDDay(visitDate.getDDayCount());
+            if (visitDate.isWeekday()) {
+                promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
+            }
+            if (visitDate.isWeekend()) {
+                promotion.discountWeekend(order.getMenuQuantity(MenuType.MAIN));
+            }
+            if (visitDate.isSpecialDay()) {
+                promotion.discountSpecial();
+            }
+            promotion.discountGift(order.getTotalPrice());
         }
-        if (visitDate.isWeekend()) {
-            promotion.discountWeekend(order.getMenuQuantity(MenuType.MAIN));
-        }
-        if (visitDate.isSpecialDay()) {
-            promotion.discountSpecial();
-        }
-        promotion.discountGift(order.getTotalPrice());
     }
 }

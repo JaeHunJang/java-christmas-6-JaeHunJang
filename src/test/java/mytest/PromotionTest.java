@@ -162,6 +162,21 @@ class PromotionTest extends NsTest {
                 .isEqualTo(badge);
     }
 
+
+    @DisplayName("할인 대상자 테스트")
+    @CsvSource(value = {
+            "티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1:true",
+            "아이스크림-1:false",
+            "타파스-1:false",
+            "아이스크림-1,제로콜라-1:false",
+    }, delimiter = ':')
+    @ParameterizedTest
+    void eventTargetTest(String order, boolean isDiscountTarget) {
+
+        assertThat(new Order(order).isDiscountTarget())
+                .isEqualTo(isDiscountTarget);
+    }
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});
