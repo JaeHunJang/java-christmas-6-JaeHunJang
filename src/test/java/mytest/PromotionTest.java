@@ -2,10 +2,7 @@ package mytest;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
-import christmas.config.Event;
-import christmas.config.Menu;
-import christmas.config.MenuType;
-import christmas.config.Message;
+import christmas.config.*;
 import christmas.model.Order;
 import christmas.model.Promotion;
 import christmas.model.VisitDate;
@@ -150,6 +147,19 @@ class PromotionTest extends NsTest {
 
         assertThat(order.getTotalPrice() - promotion.getDiscount())
                 .isEqualTo(197808);
+    }
+
+    @DisplayName("배지 테스트")
+    @CsvSource(value = {
+            "0:없음", "4999:없음",
+            "5000:별", "9999:별",
+            "10000:트리", "19999:트리",
+            "20000:산타", "200000:산타"
+    }, delimiter = ':')
+    @ParameterizedTest
+    void badgeTest(int totalDiscount, String badge) {
+        assertThat(EventBadge.findBadgeByTotalDiscount(totalDiscount))
+                .isEqualTo(badge);
     }
 
     @Override

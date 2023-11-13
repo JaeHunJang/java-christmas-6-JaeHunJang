@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.config.EventBadge;
 import christmas.config.MenuType;
 import christmas.model.Order;
 import christmas.model.Promotion;
@@ -28,6 +29,7 @@ public class PromotionController {
         OutputView.printPromotion(promotion.getPromotionList());
         OutputView.printTotalDiscount(promotion.getTotalDiscount());
         OutputView.printPaymentPrice(order.getTotalPrice(), promotion.getDiscount());
+        OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(promotion.getTotalDiscount()));
     }
 
     private void discount() {

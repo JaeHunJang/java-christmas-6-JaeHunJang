@@ -48,4 +48,8 @@ public class OutputView {
     public static void printPaymentPrice(int totalPrice, int totalDiscount) {
         System.out.printf(Message.OUTPUT_PAYMENT_PRICE, Util.formattingNumber(totalPrice - totalDiscount));
     }
+
+    public static void printBadge(String badge) {
+        System.out.printf(Message.OUTPUT_BADGE, badge);
+    }
 }
