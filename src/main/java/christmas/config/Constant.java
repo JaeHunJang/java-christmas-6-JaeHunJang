@@ -18,4 +18,5 @@ public class Constant {
     public static final int DISCOUNT_SPECIAL = 1000;
     public static final int DISCOUNT_CHRISTMAS = 1000;
     public static final int DISCOUNT_CHRISTMAS_UNIT = 100;
+    public static final int MINUS = -1;
 }
