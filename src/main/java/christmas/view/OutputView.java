@@ -11,12 +11,12 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_VISIT_DATE, date);
     }
 
-    public static void printOrder(Map<String, Integer> order) {
+    public static void printOrder(Map<String, String> order) {
         System.out.println(Message.OUTPUT_MENU_TITLE);
         order.forEach(OutputView::printMenu);
     }
 
-    public static void printMenu(String menu, int quantity) {
+    public static void printMenu(String menu, String quantity) {
         System.out.printf(Message.OUTPUT_MENU, menu, quantity);
     }
 
