@@ -55,6 +55,21 @@ public class Promotion {
                 .collect(Collectors.toMap(event -> event.getKey().getName(), Map.Entry::getValue));
     }
 
+    public int getTotalDiscount() {
+        return promotion.values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public int getDiscount() {
+        return promotion.entrySet()
+                .stream()
+                .filter(event -> event.getKey() != Event.GIFT)
+                .mapToInt(Map.Entry::getValue)
+                .sum();
+    }
+
     public Map<Event, Integer> getPromotion() {
         return promotion;
     }

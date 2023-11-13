@@ -40,4 +40,12 @@ public class OutputView {
     public static void printEvent(String menu, int quantity) {
         System.out.printf(Message.OUTPUT_PROMOTION_ITEM, menu, Util.formattingNumber(quantity));
     }
+
+    public static void printTotalDiscount(int totalDiscount) {
+        System.out.printf(Message.OUTPUT_TOTAL_DISCOUNT, Util.formattingNumber(totalDiscount));
+    }
+
+    public static void printPaymentPrice(int totalPrice, int totalDiscount) {
+        System.out.printf(Message.OUTPUT_PAYMENT_PRICE, Util.formattingNumber(totalPrice - totalDiscount));
+    }
 }

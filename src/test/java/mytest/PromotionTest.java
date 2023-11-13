@@ -10,6 +10,7 @@ import christmas.model.Order;
 import christmas.model.Promotion;
 import christmas.model.VisitDate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -117,6 +118,38 @@ class PromotionTest extends NsTest {
 
         assertThat(promotion.getPromotion().get(Event.CHRISTMAS))
                 .isEqualTo(discount);
+    }
+
+    @DisplayName("총 혜택 금액 계산 테스트")
+    @Test
+    void totalDiscountTest() {
+        Promotion promotion = new Promotion();
+        promotion.discountSpecial(); //1000
+        promotion.discountWeekday(3); //6069
+        promotion.discountWeekend(1); //2023
+        promotion.discountDDay(11); //2100
+        promotion.discountGift(120000); //25000
+
+        assertThat(promotion.getTotalDiscount())
+                .isEqualTo(36192);
+    }
+
+    @DisplayName("할인 후 결제금액 계산 테스트")
+    @Test
+    void paymentPriceTest() {
+        Order order = new Order("티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1"); //55000+54000+70000+25000+5000
+        Promotion promotion = new Promotion();
+        promotion.discountSpecial(); //1000
+        promotion.discountWeekday(3); //6069
+        promotion.discountWeekend(1); //2023
+        promotion.discountDDay(11); //2100
+        promotion.discountGift(120000); //25000 - 포함X
+
+        assertThat(promotion.getDiscount())
+                .isEqualTo(11192);
+
+        assertThat(order.getTotalPrice() - promotion.getDiscount())
+                .isEqualTo(197808);
     }
 
     @Override

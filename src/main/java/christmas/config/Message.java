@@ -11,6 +11,8 @@ public class Message {
     public static final String OUTPUT_GIFT = "%n<증정 메뉴>%n%s%n";
     public static final String OUTPUT_PROMOTION_TITLE = "\n<혜택 내역>";
     public static final String OUTPUT_PROMOTION_ITEM = "%s: -%s원%n";
+    public static final String OUTPUT_TOTAL_DISCOUNT = "%n<총혜택 금액>%n-%s원%n";
+    public static final String OUTPUT_PAYMENT_PRICE = "%n<할인 후 예상 결제 금액>%n%s원%n";
     public static final String GIFT = "샴페인 1개";
     public static final String NONE = "없음";
 
