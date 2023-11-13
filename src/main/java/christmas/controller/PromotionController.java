@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.config.MenuType;
 import christmas.model.Order;
 import christmas.model.Promotion;
 import christmas.model.VisitDate;
@@ -9,6 +10,7 @@ public class PromotionController {
     private final VisitDate visitDate;
     private final Order order;
     private final Promotion promotion;
+
     public PromotionController() {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
@@ -27,5 +29,11 @@ public class PromotionController {
 
     private void discount() {
         promotion.discountGift(order.getTotalPrice());
+        if (visitDate.isWeekday()) {
+            promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
+        }
+        if (visitDate.isWeekend()) {
+            promotion.discountWeekend(order.getMenuQuantity(MenuType.MAIN));
+        }
     }
 }

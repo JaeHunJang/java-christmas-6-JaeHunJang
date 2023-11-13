@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.config.Constant;
 import christmas.config.Menu;
+import christmas.config.MenuType;
 import christmas.config.Message;
 import christmas.util.validator.OrderValidator;
 
@@ -33,8 +34,23 @@ public class Order {
     }
 
     private void validateMaxOrderQuantity() {
-        if (order.values().stream().mapToInt(Integer::intValue).sum() > Constant.MENU_MAX_QUANTITY)
+        if (getTotalQuantity() > Constant.MENU_MAX_QUANTITY)
             throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
+    }
+
+    private int getTotalQuantity() {
+        return order.values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public int getMenuQuantity(MenuType menuType) {
+        return order.keySet()
+                .stream()
+                .filter(menu -> menu.getType() == menuType)
+                .mapToInt(order::get)
+                .sum();
     }
 
     public int getTotalPrice() {

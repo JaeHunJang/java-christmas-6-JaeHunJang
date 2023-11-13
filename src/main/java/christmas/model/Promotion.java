@@ -29,4 +29,16 @@ public class Promotion {
     public boolean hasGift() {
         return promotion.get(Event.GIFT) > 0;
     }
+
+    public void discountWeekday(int desertQuantity) {
+        promotion.put(Event.WEEKDAY, desertQuantity * Constant.DISCOUNT_WEEK_PRICE);
+    }
+
+    public void discountWeekend(int mainQuantity) {
+        promotion.put(Event.WEEKEND, mainQuantity * Constant.DISCOUNT_WEEK_PRICE);
+    }
+
+    public Map<Event, Integer> getPromotion() {
+        return promotion;
+    }
 }

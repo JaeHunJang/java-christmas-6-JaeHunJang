@@ -2,10 +2,15 @@ package mytest;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
+import christmas.config.Event;
+import christmas.config.MenuType;
 import christmas.config.Message;
+import christmas.model.Order;
+import christmas.model.Promotion;
 import christmas.model.VisitDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -48,6 +53,40 @@ class PromotionTest extends NsTest {
 
         assertThat(visitDate.isWeekend())
                 .isTrue();
+    }
+
+    @DisplayName("평일 할인 테스트")
+    @CsvSource(value = {
+            "초코케이크-1,아이스크림-1:4046",
+            "아이스크림-1:2023",
+            "초코케이크-1:2023",
+            "초코케이크-3,아이스크림-1:8092",
+            }, delimiter = ':'
+    )
+    @ParameterizedTest
+    void discountWeekdayTest(String order, int discountPrice) {
+        Promotion promotion = new Promotion();
+        promotion.discountWeekday(new Order(order).getMenuQuantity(MenuType.DESSERT));
+
+        assertThat(promotion.getPromotion().get(Event.WEEKDAY))
+                .isEqualTo(discountPrice);
+    }
+
+    @DisplayName("주말 할인 테스트")
+    @CsvSource(value = {
+            "티본스테이크-1,바비큐립-1:4046",
+            "바비큐립-1:2023",
+            "티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1:10115",
+            "해산물파스타-3,시저샐러드-1,초코케이크-1:6069",
+    }, delimiter = ':'
+    )
+    @ParameterizedTest
+    void discountWeekendTest(String order, int discountPrice) {
+        Promotion promotion = new Promotion();
+        promotion.discountWeekend(new Order(order).getMenuQuantity(MenuType.MAIN));
+
+        assertThat(promotion.getPromotion().get(Event.WEEKEND))
+                .isEqualTo(discountPrice);
     }
 
     @Override

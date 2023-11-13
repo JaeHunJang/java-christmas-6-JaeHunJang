@@ -14,4 +14,5 @@ public class Constant {
     public static final int MENU_MAX_QUANTITY = 20;
 
     public static final int GIFT_LIMIT_PRICE = 120000;
+    public static final int DISCOUNT_WEEK_PRICE = 2023;
 }
