@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class VisitDate {
     private static final int YEAR = 2023;
     private static final int MONTH = 12;
+    private static final int MAX_DDAY = 25;
     private static final int[] SPECIAL_DAY = {3, 10, 17, 24, 25, 31};
     private static final int[] WEEKDAY = {1, 2, 3, 4, 7};
     private static final int[] WEEKEND = {5, 6};
@@ -33,7 +34,11 @@ public class VisitDate {
                 .anyMatch(day -> day == getWeek());
     }
 
-    public int
+    public int getDDayCount() {
+        if (visitDate > MAX_DDAY)
+            return -1;
+        return visitDate -1;
+    }
 
     private int getWeek() {
         return LocalDate.of(YEAR, MONTH, visitDate)

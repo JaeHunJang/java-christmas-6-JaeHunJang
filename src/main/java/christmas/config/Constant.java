@@ -16,4 +16,6 @@ public class Constant {
     public static final int GIFT_LIMIT_PRICE = 120000;
     public static final int DISCOUNT_WEEK_PRICE = 2023;
     public static final int DISCOUNT_SPECIAL = 1000;
+    public static final int DISCOUNT_CHRISTMAS = 1000;
+    public static final int DISCOUNT_CHRISTMAS_UNIT = 100;
 }

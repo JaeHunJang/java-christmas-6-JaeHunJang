@@ -103,7 +103,19 @@ class PromotionTest extends NsTest {
                 .isEqualTo(1000);
     }
 
+    @DisplayName("디데이 할인 테스트")
+    @CsvSource(value = {
+            "1:1000", "3:1200", "10:1900", "17:2600", "24:3300", "25:3400", "31:0"
+    }, delimiter = ':')
+    @ParameterizedTest
+    void discountDDaytest(String day, int discount) {
+        VisitDate visitDate = new VisitDate(day);
+        Promotion promotion = new Promotion();
+        promotion.discountDDay(visitDate.getDDayCount());
 
+        assertThat(promotion.getPromotion().get(Event.CHRISTMAS))
+                .isEqualTo(discount);
+    }
 
     @Override
     protected void runMain() {

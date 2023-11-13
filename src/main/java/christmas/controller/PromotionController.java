@@ -28,6 +28,7 @@ public class PromotionController {
     }
 
     private void discount() {
+        promotion.discountDDay(visitDate.getDDayCount());
         if (visitDate.isWeekday()) {
             promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
         }

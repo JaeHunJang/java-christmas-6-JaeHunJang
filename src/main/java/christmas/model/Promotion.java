@@ -42,6 +42,12 @@ public class Promotion {
         promotion.put(Event.SPECIAL, Constant.DISCOUNT_SPECIAL);
     }
 
+    public void discountDDay(int dayCount) {
+        if (dayCount >= 0) {
+            promotion.put(Event.CHRISTMAS, Constant.DISCOUNT_CHRISTMAS + Constant.DISCOUNT_CHRISTMAS_UNIT * dayCount);
+        }
+    }
+
     public Map<Event, Integer> getPromotion() {
         return promotion;
     }
