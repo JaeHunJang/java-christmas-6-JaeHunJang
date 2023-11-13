@@ -3,6 +3,7 @@ package mytest;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import christmas.config.Message;
+import christmas.model.VisitDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,6 +24,30 @@ class PromotionTest extends NsTest {
 
         assertThat(output())
                 .endsWith(Message.GIFT);
+    }
+
+    @DisplayName("평일 테스트")
+    @ValueSource(strings = {
+            "3", "5", "7", "11", "25", "28"
+    })
+    @ParameterizedTest
+    void weekdayTest(String visitDay) {
+        VisitDate visitDate = new VisitDate(visitDay);
+
+        assertThat(visitDate.isWeekday())
+                .isTrue();
+    }
+
+    @DisplayName("주말 테스트")
+    @ValueSource(strings = {
+            "1", "2", "15", "29", "30"
+    })
+    @ParameterizedTest
+    void weekendTest(String visitDay) {
+        VisitDate visitDate = new VisitDate(visitDay);
+
+        assertThat(visitDate.isWeekend())
+                .isTrue();
     }
 
     @Override
