@@ -38,6 +38,10 @@ public class Promotion {
         promotion.put(Event.WEEKEND, mainQuantity * Constant.DISCOUNT_WEEK_PRICE);
     }
 
+    public void discountSpecial() {
+        promotion.put(Event.SPECIAL, Constant.DISCOUNT_SPECIAL);
+    }
+
     public Map<Event, Integer> getPromotion() {
         return promotion;
     }

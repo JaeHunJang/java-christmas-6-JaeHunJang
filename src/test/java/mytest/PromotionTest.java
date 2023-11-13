@@ -89,6 +89,22 @@ class PromotionTest extends NsTest {
                 .isEqualTo(discountPrice);
     }
 
+    @DisplayName("특별 할인 테스트")
+    @ValueSource(strings = {
+            "3", "10", "17", "24", "25", "31"
+    })
+    @ParameterizedTest
+    void discountSpecialest(String day) {
+        Promotion promotion = new Promotion();
+        if (new VisitDate(day).isSpecialDay())
+            promotion.discountSpecial();
+
+        assertThat(promotion.getPromotion().get(Event.SPECIAL))
+                .isEqualTo(1000);
+    }
+
+
+
     @Override
     protected void runMain() {
         Application.main(new String[]{});

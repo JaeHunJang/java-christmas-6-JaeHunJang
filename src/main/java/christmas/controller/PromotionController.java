@@ -28,12 +28,15 @@ public class PromotionController {
     }
 
     private void discount() {
-        promotion.discountGift(order.getTotalPrice());
         if (visitDate.isWeekday()) {
             promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
         }
         if (visitDate.isWeekend()) {
             promotion.discountWeekend(order.getMenuQuantity(MenuType.MAIN));
         }
+        if (visitDate.isSpecialDay()) {
+            promotion.discountSpecial();
+        }
+        promotion.discountGift(order.getTotalPrice());
     }
 }
