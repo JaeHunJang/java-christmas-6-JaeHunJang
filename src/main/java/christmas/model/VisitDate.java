@@ -8,10 +8,11 @@ import java.util.Arrays;
 public class VisitDate {
     private static final int YEAR = 2023;
     private static final int MONTH = 12;
-    private static final int MAX_DDAY = 25;
-    private static final int[] SPECIAL_DAY = {3, 10, 17, 24, 25, 31};
-    private static final int[] WEEKDAY = {1, 2, 3, 4, 7};
-    private static final int[] WEEKEND = {5, 6};
+    private static final int START_D_DAY = 1;
+    private static final int END_D_DAY = 25;
+    private static final int[] SPECIAL_DAYS = {3, 10, 17, 24, 25, 31};
+    private static final int[] WEEKDAYS = {1, 2, 3, 4, 7};
+    private static final int[] WEEKENDS = {5, 6};
     private final int visitDate;
 
     public VisitDate(String visitDate) {
@@ -20,24 +21,24 @@ public class VisitDate {
     }
 
     public boolean isSpecialDay() {
-        return Arrays.stream(SPECIAL_DAY)
+        return Arrays.stream(SPECIAL_DAYS)
                 .anyMatch(day -> day == visitDate);
     }
 
     public boolean isWeekday() {
-        return Arrays.stream(WEEKDAY)
+        return Arrays.stream(WEEKDAYS)
                 .anyMatch(day -> day == getWeek());
     }
 
     public boolean isWeekend() {
-        return Arrays.stream(WEEKEND)
+        return Arrays.stream(WEEKENDS)
                 .anyMatch(day -> day == getWeek());
     }
 
     public int getDDayCount() {
-        if (visitDate > MAX_DDAY)
+        if (visitDate > END_D_DAY)
             return -1;
-        return visitDate - 1;
+        return visitDate - START_D_DAY;
     }
 
     private int getWeek() {

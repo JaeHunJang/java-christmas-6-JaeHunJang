@@ -1,6 +1,5 @@
 package christmas.view;
 
-import christmas.config.Constant;
 import christmas.config.Message;
 import christmas.util.Util;
 
@@ -25,7 +24,7 @@ public class OutputView {
     }
 
     public static void printGift(boolean hasGift) {
-        String gift = Message.NONE;
+        String gift = Message.OUTPUT_NONE;
         if (hasGift) {
             gift = Message.GIFT;
         }
@@ -35,7 +34,7 @@ public class OutputView {
     public static void printPromotion(boolean isEventTarget, Map<String, Integer> promotion) {
         System.out.println(Message.OUTPUT_PROMOTION_TITLE);
         if (!isEventTarget) {
-            System.out.println(Message.NONE);
+            System.out.println(Message.OUTPUT_NONE);
         }
         promotion.forEach(OutputView::printEvent);
     }
