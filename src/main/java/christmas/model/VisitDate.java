@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class VisitDate {
-    public static final int YEAR = 2023;
-    public static final int MONTH = 12;
-    public static final int[] WEEKDAY = {1, 2, 3, 4, 7};
-    public static final int[] WEEKEND = {5, 6};
+    private static final int YEAR = 2023;
+    private static final int MONTH = 12;
+    private static final int[] WEEKDAY = {1, 2, 3, 4, 7};
+    private static final int[] WEEKEND = {5, 6};
     private final int visitDate;
 
     public VisitDate(String visitDate) {
