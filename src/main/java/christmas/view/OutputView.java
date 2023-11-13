@@ -24,9 +24,9 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_TOTAL_PRICE, Util.formattingNumber(totalPrice));
     }
 
-    public static void printGift(boolean isGiftTarget) {
+    public static void printGift(boolean hasGift) {
         String gift = Message.NONE;
-        if(isGiftTarget) {
+        if(hasGift) {
             gift = Message.GIFT;
         }
         System.out.printf(Message.OUTPUT_GIFT, gift);

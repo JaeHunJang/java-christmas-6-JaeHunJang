@@ -43,10 +43,6 @@ public class Order {
                 .sum();
     }
 
-    public boolean isGiftTarget() {
-        return getTotalPrice() >= Constant.GIFT_LIMIT_PRICE;
-    }
-
     public Map<String, String> orderToString() {
         return order.entrySet()
                 .stream()
