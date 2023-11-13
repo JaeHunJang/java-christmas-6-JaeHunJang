@@ -37,7 +37,7 @@ public class VisitDate {
     public int getDDayCount() {
         if (visitDate > MAX_DDAY)
             return -1;
-        return visitDate -1;
+        return visitDate - 1;
     }
 
     private int getWeek() {

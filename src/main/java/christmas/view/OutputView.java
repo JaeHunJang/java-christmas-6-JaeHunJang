@@ -26,7 +26,7 @@ public class OutputView {
 
     public static void printGift(boolean hasGift) {
         String gift = Message.NONE;
-        if(hasGift) {
+        if (hasGift) {
             gift = Message.GIFT;
         }
         System.out.printf(Message.OUTPUT_GIFT, gift);
@@ -34,7 +34,7 @@ public class OutputView {
 
     public static void printPromotion(boolean isEventTarget, Map<String, Integer> promotion) {
         System.out.println(Message.OUTPUT_PROMOTION_TITLE);
-        if(!isEventTarget) {
+        if (!isEventTarget) {
             System.out.println(Message.NONE);
         }
         promotion.forEach(OutputView::printEvent);

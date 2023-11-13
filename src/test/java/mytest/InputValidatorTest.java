@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class InputValidatorTest extends NsTest {
     @DisplayName("날짜 입력 검증 테스트")
-    @ValueSource(strings = {"a","ㄱ","10a","ㄱ10","0","-1","32","99"})
+    @ValueSource(strings = {"a", "ㄱ", "10a", "ㄱ10", "0", "-1", "32", "99"})
     @ParameterizedTest
     void visitDateValidatorTest(String date) {
         assertThatThrownBy(() -> new VisitDateValidator(date))
@@ -27,7 +27,7 @@ class InputValidatorTest extends NsTest {
     }
 
     @DisplayName("날짜 저장 테스트")
-    @ValueSource(strings = {"a","ㄱ","10a","ㄱ10","0","-1","32","99"})
+    @ValueSource(strings = {"a", "ㄱ", "10a", "ㄱ10", "0", "-1", "32", "99"})
     @ParameterizedTest
     void visitDateTest(String date) {
         runException(date);
@@ -40,7 +40,7 @@ class InputValidatorTest extends NsTest {
     @DisplayName("주문 입력 검증 테스트")
     @ValueSource(strings = {
             "해산물파스타-,2", "해산물파스타:2", "해산-1,물파스타-2", "해산물파스타-0", "0-해산물파스타",
-            "해산-1,물파스타-2","해산물파스타-2-레드와인-1-초코케이크-1","해산물파스타,2,레드와인,1,초코케이크,1",
+            "해산-1,물파스타-2", "해산물파스타-2-레드와인-1-초코케이크-1", "해산물파스타,2,레드와인,1,초코케이크,1",
             "해산물파스타-2, 레드와인-1", "해산물파스타-2,해산물파스타-2"
     })
     @ParameterizedTest
@@ -53,7 +53,7 @@ class InputValidatorTest extends NsTest {
     @DisplayName("주문 저장 테스트")
     @ValueSource(strings = {
             "해산물파스타-,2", "해산물파스타:2", "해산-1,물파스타-2", "해산물파스타-0", "0-해산물파스타",
-            "해산-1,물파스타-2","해산물파스타-2-레드와인-1-초코케이크-1","해산물파스타,2,레드와인,1,초코케이크,1",
+            "해산-1,물파스타-2", "해산물파스타-2-레드와인-1-초코케이크-1", "해산물파스타,2,레드와인,1,초코케이크,1",
             "해산물파스타-2, 레드와인-1", "해산물파스타-2,해산물파스타-2"
     })
     @ParameterizedTest
@@ -67,7 +67,7 @@ class InputValidatorTest extends NsTest {
 
     @DisplayName("최대 주문 수량 테스트")
     @ValueSource(strings = {
-            "해산물파스타-19,타파스-2","해산물파스타-21",
+            "해산물파스타-19,타파스-2", "해산물파스타-21",
             "양송이수프-10,타파스-1,시저샐러드-1,티본스테이크-1,바비큐립-1,해산물파스타-1,크리스마스파스타-1,초코케이크-1,아이스크림-1,제로콜라-1,레드와인-1,샴페인-1"
     })
     @ParameterizedTest
