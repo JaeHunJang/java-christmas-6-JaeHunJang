@@ -31,4 +31,13 @@ public class OutputView {
         }
         System.out.printf(Message.OUTPUT_GIFT, gift);
     }
+
+    public static void printPromotion(Map<String, Integer> promotion) {
+        System.out.println(Message.OUTPUT_PROMOTION_TITLE);
+        promotion.forEach(OutputView::printEvent);
+    }
+
+    public static void printEvent(String menu, int quantity) {
+        System.out.printf(Message.OUTPUT_PROMOTION_ITEM, menu, Util.formattingNumber(quantity));
+    }
 }

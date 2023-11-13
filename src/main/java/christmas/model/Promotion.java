@@ -48,6 +48,13 @@ public class Promotion {
         }
     }
 
+    public Map<String, Integer> getPromotionList() {
+        return promotion.entrySet()
+                .stream()
+                .filter(event -> event.getValue() > 0)
+                .collect(Collectors.toMap(event -> event.getKey().getName(), Map.Entry::getValue));
+    }
+
     public Map<Event, Integer> getPromotion() {
         return promotion;
     }

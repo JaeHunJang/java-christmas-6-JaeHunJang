@@ -25,6 +25,7 @@ public class PromotionController {
         OutputView.printOrder(order.orderToString());
         OutputView.printTotalPrice(order.getTotalPrice());
         OutputView.printGift(promotion.hasGift());
+        OutputView.printPromotion(promotion.getPromotionList());
     }
 
     private void discount() {
