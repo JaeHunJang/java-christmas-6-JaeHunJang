@@ -2,8 +2,7 @@ package christmas.controller;
 
 import christmas.config.Constant;
 import christmas.config.EventBadge;
-import christmas.config.MenuType;
-import christmas.config.GiftEvent;
+import christmas.config.Gift;
 import christmas.model.Order;
 import christmas.model.Promotion;
 import christmas.model.VisitDate;
@@ -17,39 +16,32 @@ public class PromotionController {
     public PromotionController() {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
-        promotion = new Promotion();
 
-        discount();
+        promotion = new EventController(visitDate, order).getPromotion();
+
         print();
+    }
+
+    private int totalPrice() {
+        return order.getTotalPrice();
+    }
+
+    private int totalDiscount() {
+        return promotion.getTotalDiscount();
+    }
+
+    private int discount() {
+        return promotion.getDiscount();
     }
 
     private void print() {
         OutputView.printVisitDate(visitDate.getVisitDate());
         OutputView.printOrder(order.orderToString());
-        OutputView.printTotalPrice(order.getTotalPrice());
-        OutputView.printGift(GiftEvent.toString(GiftEvent.getGift(order.getTotalPrice())));
-        OutputView.printPromotion(order.isDiscountTarget(), promotion.getPromotionList());
-        OutputView.printTotalDiscount(promotion.getTotalDiscount() * Constant.MINUS);
-        OutputView.printPaymentPrice(order.getTotalPrice(), promotion.getDiscount());
-        OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(promotion.getTotalDiscount()));
-    }
-
-    private void discount() {
-        if (!order.isDiscountTarget()) {
-            return;
-        }
-        promotion.discountDDay(visitDate.getDDayCount());
-        if (visitDate.isWeekday()) {
-            promotion.discountWeekday(order.getMenuQuantity(MenuType.DESSERT));
-        }
-        if (visitDate.isWeekend()) {
-            promotion.discountWeekend(order.getMenuQuantity(MenuType.MAIN));
-        }
-        if (visitDate.isSpecialDay()) {
-            promotion.discountSpecial();
-        }
-        if (GiftEvent.getGift(order.getTotalPrice()) != GiftEvent.NONE) {
-            promotion.discountGift(GiftEvent.getGift(order.getTotalPrice()));
-        }
+        OutputView.printTotalPrice(totalPrice());
+        OutputView.printGift(Gift.getGift(totalPrice()));
+        OutputView.printPromotion(EventController.isDiscountTarget(totalPrice()), promotion.getPromotionList());
+        OutputView.printTotalDiscount(totalDiscount() * Constant.MINUS);
+        OutputView.printPaymentPrice(totalPrice() - discount());
+        OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(totalDiscount()));
     }
 }

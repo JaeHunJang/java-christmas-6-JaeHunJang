@@ -7,7 +7,6 @@ import christmas.config.Message;
 import christmas.util.Util;
 import christmas.util.validator.OrderValidator;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -40,10 +39,6 @@ public class Order {
                 .stream()
                 .filter(menu -> menu.getType() == menuType)
                 .map(order::get));
-    }
-
-    public boolean isDiscountTarget() {
-        return getTotalPrice() >= Constant.DISCOUNT_LIMIT_PRICE;
     }
 
     public int getTotalPrice() {
