@@ -4,6 +4,7 @@ import christmas.controller.PromotionController;
 
 public class Application {
     public static void main(String[] args) {
-        new PromotionController();
+        PromotionController promotionController = new PromotionController();
+        promotionController.active();
     }
 }

@@ -17,9 +17,10 @@ public class PromotionController {
     public PromotionController() {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
-
         promotion = new PromotionGenerator(visitDate, order).getPromotion();
+    }
 
+    public void active() {
         print();
     }
 
