@@ -1,13 +1,11 @@
 package christmas.model;
 
+import christmas.config.Constant;
 import christmas.util.validator.VisitDateValidator;
 
 import java.time.LocalDate;
 
 public class VisitDate {
-    private static final int YEAR = 2023;
-    private static final int MONTH = 12;
-
     private final int visitDate;
 
     public VisitDate(String visitDate) {
@@ -16,7 +14,7 @@ public class VisitDate {
     }
 
     public int getWeekDay() {
-        return LocalDate.of(YEAR, MONTH, visitDate)
+        return LocalDate.of(Constant.YEAR, Constant.MONTH, visitDate)
                 .getDayOfWeek()
                 .getValue();
     }

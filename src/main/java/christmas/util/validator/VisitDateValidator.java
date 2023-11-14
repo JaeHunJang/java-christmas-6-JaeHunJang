@@ -20,13 +20,13 @@ public class VisitDateValidator {
     }
 
     private void validateDateStart() {
-        if (Integer.parseInt(date) < Constant.VISIT_DATE_START) {
+        if (Integer.parseInt(date) < Constant.DAY_START) {
             throw new IllegalArgumentException(Message.ERROR_INPUT_DATE);
         }
     }
 
     private void validateDateEnd() {
-        if (Integer.parseInt(date) > Constant.VISIT_DATE_END) {
+        if (Integer.parseInt(date) > Constant.DAY_END) {
             throw new IllegalArgumentException(Message.ERROR_INPUT_DATE);
         }
     }

@@ -2,8 +2,10 @@ package christmas.config;
 
 public class Constant {
     public static final String REGEX_DATE = "\\d+";
-    public static final int VISIT_DATE_START = 1;
-    public static final int VISIT_DATE_END = 31;
+    public static final int YEAR = 2023;
+    public static final int MONTH = 12;
+    public static final int DAY_START = 1;
+    public static final int DAY_END = 31;
 
     public static final String MENU_DELIMITER = ",";
     public static final String MENU_ITEM_DELIMITER = "-";
