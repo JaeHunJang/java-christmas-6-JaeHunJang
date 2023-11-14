@@ -1,6 +1,5 @@
 package christmas.view;
 
-import christmas.config.GiftEvent;
 import christmas.config.Message;
 import christmas.util.Util;
 
@@ -13,11 +12,9 @@ public class OutputView {
 
     public static void printOrder(Map<String, String> order) {
         System.out.println(Message.OUTPUT_MENU_TITLE);
-        order.forEach(OutputView::printMenu);
-    }
-
-    public static void printMenu(String menu, String quantity) {
-        System.out.printf(Message.OUTPUT_MENU, menu, quantity);
+        order.forEach((menu, quantity) ->
+                System.out.printf(Message.OUTPUT_MENU, menu, quantity)
+        );
     }
 
     public static void printTotalPrice(int totalPrice) {
@@ -33,19 +30,17 @@ public class OutputView {
         if (!isEventTarget) {
             System.out.println(Message.OUTPUT_NONE);
         }
-        promotion.forEach(OutputView::printEvent);
-    }
-
-    public static void printEvent(String menu, int quantity) {
-        System.out.printf(Message.OUTPUT_PROMOTION_ITEM, menu, Util.formattingNumber(quantity));
+        promotion.forEach((event, discount) ->
+                System.out.printf(Message.OUTPUT_PROMOTION_ITEM, event, discount)
+        );
     }
 
     public static void printTotalDiscount(int totalDiscount) {
         System.out.printf(Message.OUTPUT_TOTAL_DISCOUNT, Util.formattingNumber(totalDiscount));
     }
 
-    public static void printPaymentPrice(int totalPrice, int totalDiscount) {
-        System.out.printf(Message.OUTPUT_PAYMENT_PRICE, Util.formattingNumber(totalPrice - totalDiscount));
+    public static void printPaymentPrice(int paymentPrice) {
+        System.out.printf(Message.OUTPUT_PAYMENT_PRICE, Util.formattingNumber(paymentPrice));
     }
 
     public static void printBadge(String badge) {
