@@ -4,6 +4,7 @@ import christmas.config.Constant;
 import christmas.config.Event;
 import christmas.config.GiftEvent;
 import christmas.config.Menu;
+import christmas.util.Util;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -51,21 +52,14 @@ public class Promotion {
     }
 
     public int getTotalDiscount() {
-        return promotion.values()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .sum();
+        return Util.intStreamSum(promotion.values()
+                .stream());
     }
 
     public int getDiscount() {
-        return promotion.entrySet()
+        return Util.intStreamSum(promotion.entrySet()
                 .stream()
                 .filter(event -> event.getKey() != Event.GIFT)
-                .mapToInt(Map.Entry::getValue)
-                .sum();
-    }
-
-    public Map<Event, Integer> getPromotion() {
-        return promotion;
+                .map(Map.Entry::getValue));
     }
 }

@@ -4,6 +4,7 @@ import christmas.config.Constant;
 import christmas.config.Menu;
 import christmas.config.MenuType;
 import christmas.config.Message;
+import christmas.util.Util;
 import christmas.util.validator.OrderValidator;
 
 import java.util.Arrays;
@@ -45,18 +46,14 @@ public class Order {
     }
 
     private int getTotalQuantity() {
-        return order.values()
-                .stream()
-                .mapToInt(Integer::intValue)
-                .sum();
+        return Util.intStreamSum(order.values().stream());
     }
 
     public int getMenuQuantity(MenuType menuType) {
-        return order.keySet()
+        return Util.intStreamSum(order.keySet()
                 .stream()
                 .filter(menu -> menu.getType() == menuType)
-                .mapToInt(order::get)
-                .sum();
+                .map(order::get));
     }
 
     public boolean isDiscountTarget() {
@@ -64,9 +61,9 @@ public class Order {
     }
 
     public int getTotalPrice() {
-        return order.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
+        return Util.intStreamSum(order.entrySet()
+                .stream()
+                .map(entry -> entry.getKey().getPrice() * entry.getValue()));
     }
 
     public Map<String, String> orderToString() {
