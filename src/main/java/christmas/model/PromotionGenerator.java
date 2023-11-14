@@ -1,13 +1,12 @@
-package christmas.controller;
+package christmas.model;
 
 import christmas.config.Constant;
 import christmas.config.MenuType;
-import christmas.model.*;
 
-public class DiscountEventController {
+public class PromotionGenerator {
     private final Promotion promotion;
 
-    DiscountEventController(final VisitDate visitDate, final Order order) {
+    public PromotionGenerator(final VisitDate visitDate, final Order order) {
         this.promotion = new Promotion();
 
         if (isDiscountTarget(order.getTotalPrice())) {
@@ -18,6 +17,11 @@ public class DiscountEventController {
             giftEvent(order.getTotalPrice());
         }
     }
+
+    private boolean isDiscountTarget(int totalPrice) {
+        return totalPrice >= Constant.DISCOUNT_LIMIT_PRICE;
+    }
+
     private void christmasDDayEvent(int visitDate) {
         promotion.setDiscountInfo(new ChristmasDDayEvent(visitDate).getDiscountInfo());
     }
@@ -36,10 +40,6 @@ public class DiscountEventController {
 
     private void giftEvent(int totalPrice) {
         promotion.setDiscountInfo(new GiftEvent(totalPrice).getDiscountInfo());
-    }
-
-    public static boolean isDiscountTarget(int totalPrice) {
-        return totalPrice >= Constant.DISCOUNT_LIMIT_PRICE;
     }
 
     public Promotion getPromotion() {
