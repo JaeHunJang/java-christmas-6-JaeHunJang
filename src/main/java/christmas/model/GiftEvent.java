@@ -37,12 +37,4 @@ public class GiftEvent {
 
         return discountInfo;
     }
-
-    public static String toString(Gift gift) {
-        if (gift.equals(Gift.NONE)) {
-            return gift.getMenu();
-        }
-
-        return gift.getMenu() + " " + gift.getQuantity() + "개";
-    }
 }
