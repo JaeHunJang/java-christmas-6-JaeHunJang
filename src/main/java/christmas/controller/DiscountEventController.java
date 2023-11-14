@@ -4,10 +4,10 @@ import christmas.config.Constant;
 import christmas.config.MenuType;
 import christmas.model.*;
 
-public class EventController {
+public class DiscountEventController {
     private final Promotion promotion;
 
-    EventController(VisitDate visitDate, Order order) {
+    DiscountEventController(VisitDate visitDate, Order order) {
         this.promotion = new Promotion();
 
         if (isDiscountTarget(order.getTotalPrice())) {

@@ -5,13 +5,12 @@ import christmas.config.Menu;
 import christmas.config.Message;
 import christmas.util.Util;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class OrderValidator {
+public class OrderGenerateBeforeValidator {
     private final String order;
 
-    public OrderValidator(String order) {
+    public OrderGenerateBeforeValidator(String order) {
         this.order = order;
         validatePattern();
         validateExistMenu();

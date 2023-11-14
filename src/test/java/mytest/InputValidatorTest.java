@@ -7,11 +7,9 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import christmas.config.Message;
 import christmas.model.Order;
-import christmas.model.VisitDate;
-import christmas.util.validator.OrderValidator;
+import christmas.util.validator.OrderGenerateBeforeValidator;
 import christmas.util.validator.VisitDateValidator;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -45,7 +43,7 @@ class InputValidatorTest extends NsTest {
     })
     @ParameterizedTest
     void orderValidatorTest(String order) {
-        assertThatThrownBy(() -> new OrderValidator(order))
+        assertThatThrownBy(() -> new OrderGenerateBeforeValidator(order))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Message.ERROR_INPUT_ORDER);
     }

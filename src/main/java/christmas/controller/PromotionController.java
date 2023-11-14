@@ -17,7 +17,7 @@ public class PromotionController {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
 
-        promotion = new EventController(visitDate, order).getPromotion();
+        promotion = new DiscountEventController(visitDate, order).getPromotion();
 
         print();
     }
@@ -39,7 +39,7 @@ public class PromotionController {
         OutputView.printOrder(order.orderToString());
         OutputView.printTotalPrice(totalPrice());
         OutputView.printGift(Gift.getGift(totalPrice()));
-        OutputView.printPromotion(EventController.isDiscountTarget(totalPrice()), promotion.getPromotionList());
+        OutputView.printPromotion(DiscountEventController.isDiscountTarget(totalPrice()), promotion.getPromotionList());
         OutputView.printTotalDiscount(totalDiscount() * Constant.MINUS);
         OutputView.printPaymentPrice(totalPrice() - discount());
         OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(totalDiscount()));
