@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.config.Constant;
 import christmas.config.Event;
+import christmas.config.GiftEvent;
 import christmas.config.Menu;
 
 import java.util.Arrays;
@@ -20,14 +21,8 @@ public class Promotion {
                 .collect(Collectors.toMap(event -> event, event -> 0));
     }
 
-    public void discountGift(int totalPrice) {
-        if (totalPrice >= Constant.GIFT_LIMIT_PRICE) {
-            promotion.put(Event.GIFT, Menu.CHAMPAGNE.getPrice());
-        }
-    }
-
-    public boolean hasGift() {
-        return promotion.get(Event.GIFT) > 0;
+    public void discountGift(GiftEvent giftEvent) {
+        promotion.put(Event.GIFT, Menu.getMenu(giftEvent.getMenu()).getPrice() * giftEvent.getQuantity());
     }
 
     public void discountWeekday(int desertQuantity) {

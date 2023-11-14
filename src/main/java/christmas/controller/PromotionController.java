@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.config.Constant;
 import christmas.config.EventBadge;
 import christmas.config.MenuType;
+import christmas.config.GiftEvent;
 import christmas.model.Order;
 import christmas.model.Promotion;
 import christmas.model.VisitDate;
@@ -26,7 +27,7 @@ public class PromotionController {
         OutputView.printVisitDate(visitDate.getVisitDate());
         OutputView.printOrder(order.orderToString());
         OutputView.printTotalPrice(order.getTotalPrice());
-        OutputView.printGift(promotion.hasGift());
+        OutputView.printGift(GiftEvent.toString(GiftEvent.getGift(order.getTotalPrice())));
         OutputView.printPromotion(order.isDiscountTarget(), promotion.getPromotionList());
         OutputView.printTotalDiscount(promotion.getTotalDiscount() * Constant.MINUS);
         OutputView.printPaymentPrice(order.getTotalPrice(), promotion.getDiscount());
@@ -47,6 +48,8 @@ public class PromotionController {
         if (visitDate.isSpecialDay()) {
             promotion.discountSpecial();
         }
-        promotion.discountGift(order.getTotalPrice());
+        if (GiftEvent.getGift(order.getTotalPrice()) != GiftEvent.NONE) {
+            promotion.discountGift(GiftEvent.getGift(order.getTotalPrice()));
+        }
     }
 }

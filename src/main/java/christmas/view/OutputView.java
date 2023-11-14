@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.config.GiftEvent;
 import christmas.config.Message;
 import christmas.util.Util;
 
@@ -23,11 +24,7 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_TOTAL_PRICE, Util.formattingNumber(totalPrice));
     }
 
-    public static void printGift(boolean hasGift) {
-        String gift = Message.OUTPUT_NONE;
-        if (hasGift) {
-            gift = Message.GIFT;
-        }
+    public static void printGift(String gift) {
         System.out.printf(Message.OUTPUT_GIFT, gift);
     }
 
