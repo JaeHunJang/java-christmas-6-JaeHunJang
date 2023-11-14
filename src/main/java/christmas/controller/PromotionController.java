@@ -5,6 +5,7 @@ import christmas.config.EventBadge;
 import christmas.config.Gift;
 import christmas.model.Order;
 import christmas.model.Promotion;
+import christmas.model.PromotionGenerator;
 import christmas.model.VisitDate;
 import christmas.view.OutputView;
 
@@ -17,7 +18,7 @@ public class PromotionController {
         visitDate = InputController.setVisitDate();
         order = InputController.setOrder();
 
-        promotion = new DiscountEventController(visitDate, order).getPromotion();
+        promotion = new PromotionGenerator(visitDate, order).getPromotion();
 
         print();
     }
@@ -30,8 +31,8 @@ public class PromotionController {
         return promotion.getTotalDiscount();
     }
 
-    private int discount() {
-        return promotion.getDiscount();
+    private boolean isEmptyPromotion() {
+        return promotion.getTotalDiscount() == 0;
     }
 
     private void print() {
@@ -39,9 +40,9 @@ public class PromotionController {
         OutputView.printOrder(order.getOrderList());
         OutputView.printTotalPrice(totalPrice());
         OutputView.printGift(Gift.getGift(totalPrice()));
-        OutputView.printPromotion(DiscountEventController.isDiscountTarget(totalPrice()), promotion.getPromotionList());
+        OutputView.printPromotion(isEmptyPromotion(), promotion.getPromotionList());
         OutputView.printTotalDiscount(totalDiscount() * Constant.MINUS);
-        OutputView.printPaymentPrice(totalPrice() - discount());
+        OutputView.printPaymentPrice(totalPrice() - promotion.getDiscount());
         OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(totalDiscount()));
     }
 }

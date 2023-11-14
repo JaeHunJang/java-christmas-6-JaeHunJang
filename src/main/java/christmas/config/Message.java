@@ -6,9 +6,9 @@ public class Message {
 
     public static final String OUTPUT_VISIT_DATE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
     public static final String OUTPUT_MENU_TITLE = "\n<주문 메뉴>";
-    public static final String OUTPUT_MENU = "%s %d개%n";
+    public static final String OUTPUT_ITEM = "%s %d개%n";
     public static final String OUTPUT_TOTAL_PRICE = "%n<할인 전 총주문 금액>%n%s원%n";
-    public static final String OUTPUT_GIFT = "%n<증정 메뉴>%n%s%n";
+    public static final String OUTPUT_GIFT_TITLE = "\n<증정 메뉴>";
     public static final String OUTPUT_PROMOTION_TITLE = "\n<혜택 내역>";
     public static final String OUTPUT_PROMOTION_ITEM = "%s: -%s원%n";
     public static final String OUTPUT_TOTAL_DISCOUNT = "%n<총혜택 금액>%n%s원%n";

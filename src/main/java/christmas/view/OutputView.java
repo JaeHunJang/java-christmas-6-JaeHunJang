@@ -2,7 +2,6 @@ package christmas.view;
 
 import christmas.config.Gift;
 import christmas.config.Message;
-import christmas.model.GiftEvent;
 import christmas.util.Util;
 
 import java.util.Map;
@@ -15,7 +14,7 @@ public class OutputView {
     public static void printOrder(Map<String, Integer> order) {
         System.out.println(Message.OUTPUT_MENU_TITLE);
         order.forEach((menu, quantity) ->
-                System.out.printf(Message.OUTPUT_MENU, menu, quantity)
+                System.out.printf(Message.OUTPUT_ITEM, menu, quantity)
         );
     }
 
@@ -24,13 +23,18 @@ public class OutputView {
     }
 
     public static void printGift(Gift gift) {
-        System.out.printf(Message.OUTPUT_GIFT, GiftEvent.toString(gift));
+        System.out.println(Message.OUTPUT_GIFT_TITLE);
+        if (gift.equals(Gift.NONE)) {
+            printNone();
+            return;
+        }
+        System.out.printf(Message.OUTPUT_ITEM, gift.getMenu(), gift.getQuantity());
     }
 
-    public static void printPromotion(boolean isEventTarget, Map<String, Integer> promotion) {
+    public static void printPromotion(boolean isEmptyPromotion, Map<String, Integer> promotion) {
         System.out.println(Message.OUTPUT_PROMOTION_TITLE);
-        if (!isEventTarget) {
-            System.out.println(Message.OUTPUT_NONE);
+        if (isEmptyPromotion) {
+            printNone();
         }
         promotion.forEach((event, discount) ->
                 System.out.printf(Message.OUTPUT_PROMOTION_ITEM, event, Util.formattingNumber(discount))
@@ -47,5 +51,9 @@ public class OutputView {
 
     public static void printBadge(String badge) {
         System.out.printf(Message.OUTPUT_BADGE, badge);
+    }
+
+    public static void printNone() {
+        System.out.println(Message.OUTPUT_NONE);
     }
 }
