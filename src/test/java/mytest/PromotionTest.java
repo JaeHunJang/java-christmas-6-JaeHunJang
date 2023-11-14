@@ -22,7 +22,7 @@ class PromotionTest extends NsTest {
         Promotion promotion = new Promotion();
         promotion.discountGift(GiftEvent.CHAMPAGNE);
 
-        assertThat(promotion.getPromotion().get(Event.GIFT))
+        assertThat(promotion.getPromotionList().get(Event.GIFT.getName()))
                 .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 
@@ -56,14 +56,14 @@ class PromotionTest extends NsTest {
             "아이스크림-1:2023",
             "초코케이크-1:2023",
             "초코케이크-3,아이스크림-1:8092",
-    }, delimiter = ':'
-    )
+            "바비큐립-1:0"
+    }, delimiter = ':')
     @ParameterizedTest
     void discountWeekdayTest(String order, int discountPrice) {
         Promotion promotion = new Promotion();
         promotion.discountWeekday(new Order(order).getMenuQuantity(MenuType.DESSERT));
 
-        assertThat(promotion.getPromotion().get(Event.WEEKDAY))
+        assertThat(promotion.getPromotionList().getOrDefault(Event.WEEKDAY.getName(), 0))
                 .isEqualTo(discountPrice);
     }
 
@@ -73,29 +73,29 @@ class PromotionTest extends NsTest {
             "바비큐립-1:2023",
             "티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1:10115",
             "해산물파스타-3,시저샐러드-1,초코케이크-1:6069",
-    }, delimiter = ':'
-    )
+            "아이스크림-1:0"
+    }, delimiter = ':')
     @ParameterizedTest
     void discountWeekendTest(String order, int discountPrice) {
         Promotion promotion = new Promotion();
         promotion.discountWeekend(new Order(order).getMenuQuantity(MenuType.MAIN));
 
-        assertThat(promotion.getPromotion().get(Event.WEEKEND))
+        assertThat(promotion.getPromotionList().getOrDefault(Event.WEEKEND.getName(), 0))
                 .isEqualTo(discountPrice);
     }
 
     @DisplayName("특별 할인 테스트")
-    @ValueSource(strings = {
-            "3", "10", "17", "24", "25", "31"
-    })
+    @CsvSource(value = {
+            "3:1000", "10:1000", "17:1000", "24:1000", "15:0", "25:1000", "31:1000", "1:0", "30:0"
+    }, delimiter = ':')
     @ParameterizedTest
-    void discountSpecialest(String day) {
+    void discountSpecialest(String day, int discount) {
         Promotion promotion = new Promotion();
         if (new VisitDate(day).isSpecialDay())
             promotion.discountSpecial();
 
-        assertThat(promotion.getPromotion().get(Event.SPECIAL))
-                .isEqualTo(1000);
+        assertThat(promotion.getPromotionList().getOrDefault(Event.SPECIAL.getName(), 0))
+                .isEqualTo(discount);
     }
 
     @DisplayName("디데이 할인 테스트")
@@ -108,7 +108,7 @@ class PromotionTest extends NsTest {
         Promotion promotion = new Promotion();
         promotion.discountDDay(visitDate.getDDayCount());
 
-        assertThat(promotion.getPromotion().get(Event.CHRISTMAS))
+        assertThat(promotion.getPromotionList().getOrDefault(Event.CHRISTMAS.getName(), 0))
                 .isEqualTo(discount);
     }
 
