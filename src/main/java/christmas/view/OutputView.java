@@ -1,6 +1,8 @@
 package christmas.view;
 
+import christmas.config.Gift;
 import christmas.config.Message;
+import christmas.model.GiftEvent;
 import christmas.util.Util;
 
 import java.util.Map;
@@ -21,8 +23,8 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_TOTAL_PRICE, Util.formattingNumber(totalPrice));
     }
 
-    public static void printGift(String gift) {
-        System.out.printf(Message.OUTPUT_GIFT, gift);
+    public static void printGift(Gift gift) {
+        System.out.printf(Message.OUTPUT_GIFT, GiftEvent.toString(gift));
     }
 
     public static void printPromotion(boolean isEventTarget, Map<String, Integer> promotion) {
@@ -31,7 +33,7 @@ public class OutputView {
             System.out.println(Message.OUTPUT_NONE);
         }
         promotion.forEach((event, discount) ->
-                System.out.printf(Message.OUTPUT_PROMOTION_ITEM, event, discount)
+                System.out.printf(Message.OUTPUT_PROMOTION_ITEM, event, Util.formattingNumber(discount))
         );
     }
 

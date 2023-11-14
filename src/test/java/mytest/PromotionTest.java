@@ -17,13 +17,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class PromotionTest extends NsTest {
 
     @DisplayName("증정 이벤트 여부 테스트")
-    @Test
-    void giftTest() {
-        Promotion promotion = new Promotion();
-        promotion.discountGift(GiftEvent.CHAMPAGNE);
+    @CsvSource(value = {
+            "120000,25000", "100000,0", "0,0", "200000,25000", "119999,0"
+    })
+    @ParameterizedTest
+    void giftTest(int totalPrice, int discount) {
+        GiftEvent giftEvent = new GiftEvent(totalPrice);
 
-        assertThat(promotion.getPromotionList().get(Event.GIFT.getName()))
-                .isEqualTo(Menu.CHAMPAGNE.getPrice());
+        assertThat(giftEvent.getDiscountInfo().get(Event.GIFT))
+                .isEqualTo(discount);
     }
 
     @DisplayName("평일 할인 테스트")
