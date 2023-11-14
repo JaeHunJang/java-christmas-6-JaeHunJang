@@ -26,13 +26,7 @@ public class OrderValidator {
     }
 
     private void validateExistMenu() {
-        generateMenuName().forEach(this::isExistMenu);
-    }
-
-    private void isExistMenu(String name) {
-        if (Menu.getMenu(name) == null) {
-            throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
-        }
+        generateMenuName().forEach(Menu::getMenu);
     }
 
     private void validateOrderQuantity() {
