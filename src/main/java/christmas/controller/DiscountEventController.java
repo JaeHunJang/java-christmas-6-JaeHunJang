@@ -7,7 +7,7 @@ import christmas.model.*;
 public class DiscountEventController {
     private final Promotion promotion;
 
-    DiscountEventController(VisitDate visitDate, Order order) {
+    DiscountEventController(final VisitDate visitDate, final Order order) {
         this.promotion = new Promotion();
 
         if (isDiscountTarget(order.getTotalPrice())) {
