@@ -1,8 +1,6 @@
 package christmas.model;
 
 import christmas.config.Event;
-import christmas.config.Gift;
-import christmas.config.Menu;
 import christmas.util.Util;
 
 import java.util.EnumMap;
@@ -14,10 +12,6 @@ public class Promotion {
 
     public Promotion() {
         promotion = new EnumMap<>(Event.class);
-    }
-
-    public void discountGift(Gift giftEvent) {
-        promotion.put(Event.GIFT, Menu.getMenu(giftEvent.getMenu()).getPrice() * giftEvent.getQuantity());
     }
 
     public Map<String, Integer> getPromotionList() {

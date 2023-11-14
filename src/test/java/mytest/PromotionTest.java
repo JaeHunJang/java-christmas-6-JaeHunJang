@@ -57,7 +57,7 @@ class PromotionTest extends NsTest {
             "3:1000", "10:1000", "17:1000", "24:1000", "15:0", "25:1000", "31:1000", "1:0", "30:0"
     }, delimiter = ':')
     @ParameterizedTest
-    void discountSpecialest(String day, int discount) {
+    void discountSpecialTest(String day, int discount) {
         VisitDate visitDate = new VisitDate(day);
 
         assertThat(new SpecialDayEvent(visitDate.getVisitDate()).getDiscountInfo().getOrDefault(Event.SPECIAL, 0))
@@ -69,7 +69,7 @@ class PromotionTest extends NsTest {
             "1:1000", "3:1200", "10:1900", "17:2600", "24:3300", "25:3400", "31:0"
     }, delimiter = ':')
     @ParameterizedTest
-    void discountDDaytest(String day, int discount) {
+    void discountDDayTest(String day, int discount) {
         VisitDate visitDate = new VisitDate(day);
 
         assertThat(new ChristmasDDayEvent(visitDate.getVisitDate()).getDiscountInfo().getOrDefault(Event.CHRISTMAS, 0))

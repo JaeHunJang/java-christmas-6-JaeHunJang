@@ -10,6 +10,7 @@ public class ChristmasDDayEvent {
     private static final int END_D_DAY = 25;
     private static final int DISCOUNT_CHRISTMAS = 1000;
     private static final int DISCOUNT_CHRISTMAS_UNIT = 100;
+
     private final int day;
 
     public ChristmasDDayEvent(int day) {
