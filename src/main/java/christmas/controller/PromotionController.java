@@ -36,7 +36,7 @@ public class PromotionController {
 
     private void print() {
         OutputView.printVisitDate(visitDate.getVisitDate());
-        OutputView.printOrder(order.orderToString());
+        OutputView.printOrder(order.getOrderList());
         OutputView.printTotalPrice(totalPrice());
         OutputView.printGift(Gift.getGift(totalPrice()));
         OutputView.printPromotion(DiscountEventController.isDiscountTarget(totalPrice()), promotion.getPromotionList());

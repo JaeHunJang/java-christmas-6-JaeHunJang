@@ -35,12 +35,12 @@ public class Order {
                 .map(entry -> entry.getKey().getPrice() * entry.getValue()));
     }
 
-    public Map<String, String> orderToString() {
+    public Map<String, Integer> getOrderList() {
         return order.entrySet()
                 .stream()
                 .collect(Collectors.toMap(
                         entry -> entry.getKey().getName(),
-                        entry -> entry.getValue().toString()
+                        Map.Entry::getValue
                 ));
     }
 }

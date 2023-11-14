@@ -12,7 +12,7 @@ public class OutputView {
         System.out.printf(Message.OUTPUT_VISIT_DATE, date);
     }
 
-    public static void printOrder(Map<String, String> order) {
+    public static void printOrder(Map<String, Integer> order) {
         System.out.println(Message.OUTPUT_MENU_TITLE);
         order.forEach((menu, quantity) ->
                 System.out.printf(Message.OUTPUT_MENU, menu, quantity)
