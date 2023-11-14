@@ -1,7 +1,7 @@
 package christmas.model;
 
 import christmas.config.Event;
-import christmas.config.GiftEvent;
+import christmas.config.Gift;
 import christmas.config.Menu;
 import christmas.util.Util;
 
@@ -16,7 +16,7 @@ public class Promotion {
         promotion = new EnumMap<>(Event.class);
     }
 
-    public void discountGift(GiftEvent giftEvent) {
+    public void discountGift(Gift giftEvent) {
         promotion.put(Event.GIFT, Menu.getMenu(giftEvent.getMenu()).getPrice() * giftEvent.getQuantity());
     }
 
