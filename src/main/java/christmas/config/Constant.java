@@ -16,6 +16,4 @@ public class Constant {
     public static final int MENU_MAX_QUANTITY = 20;
 
     public static final int DISCOUNT_LIMIT_PRICE = 10000;
-
-    public static final int MINUS = -1;
 }

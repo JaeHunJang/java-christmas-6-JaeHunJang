@@ -42,7 +42,7 @@ public class PromotionController {
         OutputView.printTotalPrice(totalPrice());
         OutputView.printGift(Gift.getGift(totalPrice()));
         OutputView.printPromotion(isEmptyPromotion(), promotion.getPromotionList());
-        OutputView.printTotalDiscount(totalDiscount() * Constant.MINUS);
+        OutputView.printTotalDiscount(totalDiscount());
         OutputView.printPaymentPrice(totalPrice() - promotion.getDiscount());
         OutputView.printBadge(EventBadge.findBadgeByTotalDiscount(totalDiscount()));
     }
