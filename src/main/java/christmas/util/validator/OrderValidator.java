@@ -5,6 +5,7 @@ import christmas.config.Menu;
 import christmas.config.Message;
 import christmas.util.Util;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrderValidator {
@@ -41,7 +42,7 @@ public class OrderValidator {
     }
 
     private List<String> generateMenuName() {
-        return List.of(Util.changeRegexToBlank(order, Constant.REGEX_MENU_NAME), Constant.MENU_DELIMITER);
+        return Util.stringToList(Util.changeRegexToBlank(order, Constant.REGEX_MENU_NAME), Constant.MENU_DELIMITER);
     }
 
     private String generateMenuQuantity() {
