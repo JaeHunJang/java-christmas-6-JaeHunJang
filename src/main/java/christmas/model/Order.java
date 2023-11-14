@@ -1,11 +1,10 @@
 package christmas.model;
 
-import christmas.config.Constant;
 import christmas.config.Menu;
 import christmas.config.MenuType;
-import christmas.config.Message;
 import christmas.util.Util;
-import christmas.util.validator.OrderValidator;
+import christmas.util.validator.OrderGenerateAfterValidator;
+import christmas.util.validator.OrderGenerateBeforeValidator;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,23 +13,12 @@ public class Order {
     private final Map<Menu, Integer> order;
 
     public Order(String order) {
-        new OrderValidator(order);
+        new OrderGenerateBeforeValidator(order);
         this.order = new OrderGenerator(order).generateOrder();
-        validateMaxOrderQuantity();
-        validateOnlyOrderDrink();
+        new OrderGenerateAfterValidator(this);
     }
 
-    private void validateMaxOrderQuantity() {
-        if (getTotalQuantity() > Constant.MENU_MAX_QUANTITY)
-            throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
-    }
-
-    private void validateOnlyOrderDrink() {
-        if (getTotalQuantity() == getMenuQuantity(MenuType.DRINK))
-            throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
-    }
-
-    private int getTotalQuantity() {
+    public int getTotalQuantity() {
         return Util.intStreamSum(order.values().stream());
     }
 
