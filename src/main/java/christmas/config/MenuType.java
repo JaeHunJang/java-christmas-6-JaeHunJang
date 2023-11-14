@@ -5,8 +5,4 @@ public enum MenuType {
     MAIN,
     DESSERT,
     DRINK;
-
-    public String getType() {
-        return super.name().toLowerCase();
-    }
 }
