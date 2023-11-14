@@ -12,7 +12,6 @@ public class OrderValidator {
 
     public OrderValidator(String order) {
         this.order = order;
-
         validatePattern();
         validateExistMenu();
         validateOrderQuantity();
@@ -36,15 +35,16 @@ public class OrderValidator {
     }
 
     private void validateOrderDuplicate() {
-        if (generateMenuName().size() != generateMenuName().stream().distinct().count())
+        if (generateMenuName().size() != Util.distinctListSize(generateMenuName())) {
             throw new IllegalArgumentException(Message.ERROR_INPUT_ORDER);
+        }
     }
 
     private List<String> generateMenuName() {
-        return Util.stringToList(order.replaceAll(Constant.REGEX_MENU_NAME, ""), Constant.MENU_DELIMITER);
+        return List.of(Util.changeRegexToBlank(order, Constant.REGEX_MENU_NAME), Constant.MENU_DELIMITER);
     }
 
     private String generateMenuQuantity() {
-        return order.replaceAll(Constant.REGEX_MENU_QUANTITY, "");
+        return Util.changeRegexToBlank(order, Constant.REGEX_MENU_QUANTITY);
     }
 }

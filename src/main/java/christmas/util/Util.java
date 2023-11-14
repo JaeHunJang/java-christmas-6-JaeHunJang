@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Util {
-    public static List<String> stringToList(String string, String delimiter) {
-        return List.of(string.split(delimiter));
+    public static String changeRegexToBlank(String target, String regex) {
+        return target.replaceAll(regex, "");
     }
 
     public static String formattingNumber(int number) {
@@ -15,9 +15,14 @@ public class Util {
                 .format(number);
     }
 
-    public static int intStreamSum(Stream<Integer> stream) {
-        return stream
-                .mapToInt(Integer::intValue)
+    public static long distinctListSize(List<?> target) {
+        return target.stream()
+                .distinct()
+                .count();
+    }
+
+    public static int intStreamSum(Stream<Integer> target) {
+        return target.mapToInt(Integer::intValue)
                 .sum();
     }
 }
