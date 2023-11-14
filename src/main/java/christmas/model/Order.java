@@ -16,23 +16,9 @@ public class Order {
 
     public Order(String order) {
         new OrderValidator(order);
-        this.order = generateOrder(order);
+        this.order = new OrderGenerator(order).generateOrder();
         validateMaxOrderQuantity();
         validateOnlyOrderDrink();
-    }
-
-    private Map<Menu, Integer> generateOrder(String order) {
-        return Arrays.stream(order.split(Constant.MENU_DELIMITER))
-                .map(menuItem -> menuItem.split(Constant.MENU_ITEM_DELIMITER))
-                .collect(Collectors.toMap(this::getMenu, this::getQuantity));
-    }
-
-    private Menu getMenu(String[] menuItem) {
-        return Menu.getMenu(menuItem[0]);
-    }
-
-    private Integer getQuantity(String[] menuItem) {
-        return Integer.parseInt(menuItem[1]);
     }
 
     private void validateMaxOrderQuantity() {
