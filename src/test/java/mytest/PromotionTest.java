@@ -3,14 +3,14 @@ package mytest;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import christmas.config.*;
-import christmas.model.Order;
-import christmas.model.Promotion;
-import christmas.model.VisitDate;
+import christmas.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -26,62 +26,28 @@ class PromotionTest extends NsTest {
                 .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 
-    @DisplayName("평일 테스트")
-    @ValueSource(strings = {
-            "3", "5", "7", "11", "25", "28"
-    })
-    @ParameterizedTest
-    void weekdayTest(String visitDay) {
-        VisitDate visitDate = new VisitDate(visitDay);
-
-        assertThat(visitDate.isWeekday())
-                .isTrue();
-    }
-
-    @DisplayName("주말 테스트")
-    @ValueSource(strings = {
-            "1", "2", "15", "29", "30"
-    })
-    @ParameterizedTest
-    void weekendTest(String visitDay) {
-        VisitDate visitDate = new VisitDate(visitDay);
-
-        assertThat(visitDate.isWeekend())
-                .isTrue();
-    }
-
     @DisplayName("평일 할인 테스트")
     @CsvSource(value = {
-            "초코케이크-1,아이스크림-1:4046",
-            "아이스크림-1:2023",
-            "초코케이크-1:2023",
-            "초코케이크-3,아이스크림-1:8092",
-            "바비큐립-1:0"
-    }, delimiter = ':')
+            "3,0,0", "5,1,2023", "7,3,6069", "15,2,0", "25,1,2023", "30,0,0"
+    })
     @ParameterizedTest
-    void discountWeekdayTest(String order, int discountPrice) {
-        Promotion promotion = new Promotion();
-        promotion.discountWeekday(new Order(order).getMenuQuantity(MenuType.DESSERT));
+    void weekdayTest(String visitDay, int quantity, int discount) {
+        VisitDate visitDate = new VisitDate(visitDay);
 
-        assertThat(promotion.getPromotionList().getOrDefault(Event.WEEKDAY.getName(), 0))
-                .isEqualTo(discountPrice);
+        assertThat(new WeekdayEvent(visitDate.getWeekDay(), quantity).getDiscountInfo().getOrDefault(Event.WEEKDAY, 0))
+                .isEqualTo(discount);
     }
 
     @DisplayName("주말 할인 테스트")
     @CsvSource(value = {
-            "티본스테이크-1,바비큐립-1:4046",
-            "바비큐립-1:2023",
-            "티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1:10115",
-            "해산물파스타-3,시저샐러드-1,초코케이크-1:6069",
-            "아이스크림-1:0"
-    }, delimiter = ':')
+            "1,2,4046", "2,1,2023", "7,3,0", "15,2,4046", "29,1,2023", "30,0,0"
+    })
     @ParameterizedTest
-    void discountWeekendTest(String order, int discountPrice) {
-        Promotion promotion = new Promotion();
-        promotion.discountWeekend(new Order(order).getMenuQuantity(MenuType.MAIN));
+    void weekendTest(String visitDay, int quantity, int discount) {
+        VisitDate visitDate = new VisitDate(visitDay);
 
-        assertThat(promotion.getPromotionList().getOrDefault(Event.WEEKEND.getName(), 0))
-                .isEqualTo(discountPrice);
+        assertThat(new WeekendEvent(visitDate.getWeekDay(), quantity).getDiscountInfo().getOrDefault(Event.WEEKEND, 0))
+                .isEqualTo(discount);
     }
 
     @DisplayName("특별 할인 테스트")
@@ -90,11 +56,9 @@ class PromotionTest extends NsTest {
     }, delimiter = ':')
     @ParameterizedTest
     void discountSpecialest(String day, int discount) {
-        Promotion promotion = new Promotion();
-        if (new VisitDate(day).isSpecialDay())
-            promotion.discountSpecial();
+        VisitDate visitDate = new VisitDate(day);
 
-        assertThat(promotion.getPromotionList().getOrDefault(Event.SPECIAL.getName(), 0))
+        assertThat(new SpecialDayEvent(visitDate.getVisitDate()).getDiscountInfo().getOrDefault(Event.SPECIAL, 0))
                 .isEqualTo(discount);
     }
 
@@ -105,10 +69,8 @@ class PromotionTest extends NsTest {
     @ParameterizedTest
     void discountDDaytest(String day, int discount) {
         VisitDate visitDate = new VisitDate(day);
-        Promotion promotion = new Promotion();
-        promotion.discountDDay(visitDate.getDDayCount());
 
-        assertThat(promotion.getPromotionList().getOrDefault(Event.CHRISTMAS.getName(), 0))
+        assertThat(new ChristmasDDayEvent(visitDate.getVisitDate()).getDiscountInfo().getOrDefault(Event.CHRISTMAS, 0))
                 .isEqualTo(discount);
     }
 
@@ -116,11 +78,14 @@ class PromotionTest extends NsTest {
     @Test
     void totalDiscountTest() {
         Promotion promotion = new Promotion();
-        promotion.discountSpecial(); //1000
-        promotion.discountWeekday(3); //6069
-        promotion.discountWeekend(1); //2023
-        promotion.discountDDay(11); //2100
-        promotion.discountGift(GiftEvent.CHAMPAGNE); //25000
+        Map<Event, Integer> discountInfo = new EnumMap<>(Event.class);
+        discountInfo.put(Event.SPECIAL, 1000);
+        discountInfo.put(Event.WEEKDAY, 6069);
+        discountInfo.put(Event.WEEKEND, 2023);
+        discountInfo.put(Event.CHRISTMAS, 2100);
+        discountInfo.put(Event.GIFT, 25000);
+
+        promotion.setDiscountInfo(discountInfo);
 
         assertThat(promotion.getTotalDiscount())
                 .isEqualTo(36192);
@@ -131,11 +96,15 @@ class PromotionTest extends NsTest {
     void paymentPriceTest() {
         Order order = new Order("티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1"); //55000+54000+70000+25000+5000
         Promotion promotion = new Promotion();
-        promotion.discountSpecial(); //1000
-        promotion.discountWeekday(3); //6069
-        promotion.discountWeekend(1); //2023
-        promotion.discountDDay(11); //2100
-        promotion.discountGift(GiftEvent.CHAMPAGNE); //25000 - 포함X
+        Map<Event, Integer> discountInfo = new EnumMap<>(Event.class);
+
+        discountInfo.put(Event.SPECIAL, 1000);
+        discountInfo.put(Event.WEEKDAY, 6069);
+        discountInfo.put(Event.WEEKEND, 2023);
+        discountInfo.put(Event.CHRISTMAS, 2100);
+        discountInfo.put(Event.GIFT, 25000);
+
+        promotion.setDiscountInfo(discountInfo);
 
         assertThat(promotion.getDiscount())
                 .isEqualTo(11192);
@@ -155,21 +124,6 @@ class PromotionTest extends NsTest {
     void badgeTest(int totalDiscount, String badge) {
         assertThat(EventBadge.findBadgeByTotalDiscount(totalDiscount))
                 .isEqualTo(badge);
-    }
-
-
-    @DisplayName("할인 대상자 테스트")
-    @CsvSource(value = {
-            "티본스테이크-1,바비큐립-1,해산물파스타-2,크리스마스파스타-1,아이스크림-1:true",
-            "아이스크림-1:false",
-            "타파스-1:false",
-            "아이스크림-1,제로콜라-1:false",
-    }, delimiter = ':')
-    @ParameterizedTest
-    void eventTargetTest(String order, boolean isDiscountTarget) {
-
-        assertThat(new Order(order).isDiscountTarget())
-                .isEqualTo(isDiscountTarget);
     }
 
     @Override
