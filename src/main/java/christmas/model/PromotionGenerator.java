@@ -1,9 +1,10 @@
 package christmas.model;
 
-import christmas.config.Constant;
 import christmas.config.MenuType;
 
 public class PromotionGenerator {
+    public static final int DISCOUNT_LIMIT_PRICE = 10000;
+
     private final Promotion promotion;
 
     public PromotionGenerator(final VisitDate visitDate, final Order order) {
@@ -19,7 +20,7 @@ public class PromotionGenerator {
     }
 
     private boolean isDiscountTarget(int totalPrice) {
-        return totalPrice >= Constant.DISCOUNT_LIMIT_PRICE;
+        return totalPrice >= DISCOUNT_LIMIT_PRICE;
     }
 
     private void christmasDDayEvent(int visitDate) {
