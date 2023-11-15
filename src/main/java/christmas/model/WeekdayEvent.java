@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class WeekdayEvent {
+public class WeekdayEvent implements DiscountEventInterface {
     private static final int[] WEEKDAYS = {1, 2, 3, 4, 7};
     private static final int DISCOUNT_WEEKDAY_PRICE = 2023;
 
@@ -18,15 +18,17 @@ public class WeekdayEvent {
         this.desertQuantity = desertQuantity;
     }
 
-    private boolean isWeekday() {
+    @Override
+    public boolean isDiscountTarget() {
         return Arrays.stream(WEEKDAYS)
                 .anyMatch(weekday -> weekday == day);
     }
 
+    @Override
     public Map<Event, Integer> getDiscountInfo() {
         Map<Event, Integer> discountInfo = new EnumMap<>(Event.class);
 
-        if (isWeekday()) {
+        if (isDiscountTarget()) {
             discountInfo.put(Event.WEEKDAY, desertQuantity * DISCOUNT_WEEKDAY_PRICE);
         }
 

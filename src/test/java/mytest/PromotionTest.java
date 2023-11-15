@@ -24,7 +24,7 @@ class PromotionTest extends NsTest {
     void giftTest(int totalPrice, int discount) {
         GiftEvent giftEvent = new GiftEvent(totalPrice);
 
-        assertThat(giftEvent.getDiscountInfo().get(Event.GIFT))
+        assertThat(giftEvent.getDiscountInfo().getOrDefault(Event.GIFT, 0))
                 .isEqualTo(discount);
     }
 

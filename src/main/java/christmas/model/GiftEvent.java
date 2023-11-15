@@ -7,7 +7,7 @@ import christmas.config.Menu;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class GiftEvent {
+public class GiftEvent implements DiscountEventInterface {
     private final int totalPrice;
 
     public GiftEvent(int totalPrice) {
@@ -22,18 +22,23 @@ public class GiftEvent {
         return getGift().getMenu();
     }
 
+    @Override
+    public boolean isDiscountTarget() {
+        return !getGift().equals(Gift.NONE);
+    }
+
     private int getGiftPrice() {
-        if (getGift().equals(Gift.NONE)) {
-            return 0;
-        }
         return Menu.getMenu(getGiftMenu())
                 .getPrice();
     }
 
+    @Override
     public Map<Event, Integer> getDiscountInfo() {
         Map<Event, Integer> discountInfo = new EnumMap<>(Event.class);
 
-        discountInfo.put(Event.GIFT, getGiftPrice());
+        if (isDiscountTarget()) {
+            discountInfo.put(Event.GIFT, getGiftPrice());
+        }
 
         return discountInfo;
     }
