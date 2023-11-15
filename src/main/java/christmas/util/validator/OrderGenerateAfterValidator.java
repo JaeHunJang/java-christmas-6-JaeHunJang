@@ -8,7 +8,7 @@ import christmas.model.Order;
 public class OrderGenerateAfterValidator {
     private final Order order;
 
-    public OrderGenerateAfterValidator(Order order) {
+    public OrderGenerateAfterValidator(final Order order) {
         this.order = order;
 
         validateMaxOrderQuantity();
