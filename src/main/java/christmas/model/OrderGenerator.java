@@ -19,8 +19,8 @@ public class OrderGenerator {
                 .map(menuItem -> menuItem.split(Constant.MENU_ITEM_DELIMITER))
                 .collect(Collectors.toMap(
                         this::getMenu,
-                        this::getQuantity)
-                );
+                        this::getQuantity
+                ));
     }
 
     private Menu getMenu(String[] menuItem) {
